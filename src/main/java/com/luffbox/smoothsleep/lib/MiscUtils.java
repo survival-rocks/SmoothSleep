@@ -1,7 +1,7 @@
 package com.luffbox.smoothsleep.lib;
 
 import com.luffbox.smoothsleep.SmoothSleep;
-import org.apache.commons.lang.text.StrSubstitutor;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -120,9 +120,6 @@ public class MiscUtils {
 	public static StrSubstitutor sub(World w, Player p, int sc, int wc, double timescale, long ticksSlept, String nickname) {
 		long worldTime = w.getTime();
 		long timeLived = p.getTicksLived();
-		long daysLived = timeLived / SmoothSleep.TICKS_PER_DAY;
-		long hrsLived = (timeLived  % SmoothSleep.TICKS_PER_DAY) / SmoothSleep.TICKS_PER_HOUR;
-		long minLived = (timeLived % SmoothSleep.TICKS_PER_DAY % SmoothSleep.TICKS_PER_HOUR) / SmoothSleep.TICKS_PER_MIN;
 		AttributeInstance mli = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
 		double maxLife = mli == null ? 20 : mli.getValue();
 		Map<String, String> values = new LinkedHashMap<>(); // Linked to stay in order

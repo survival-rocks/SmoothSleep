@@ -7,8 +7,5 @@ public class DefUserHelper implements UserHelper{
 	public String getNickname(Player p) { return p.getDisplayName(); }
 
 	@Override
-	public boolean isAfk(Player p) { return false; }
-
-	@Override
 	public boolean isVanished(Player p) { return false; }
 }

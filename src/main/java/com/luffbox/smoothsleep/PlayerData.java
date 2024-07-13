@@ -148,7 +148,6 @@ public class PlayerData implements Purgeable {
 		boolean ignore = hasIgnorePerm() || plr.isSleepingIgnored();
 		if (!ignore && plr.getGameMode() == GameMode.SPECTATOR) ignore = true;
 		if (!ignore && worldConf().getBoolean(IGNORE_VANISH) && pl.data.userHelper.isVanished(plr)) ignore = true;
-		if (!ignore && worldConf().getBoolean(IGNORE_AFK) && pl.data.userHelper.isAfk(plr)) ignore = true;
 		return ignore;
 	}
 
@@ -248,9 +247,11 @@ public class PlayerData implements Purgeable {
 	private String bossBarTitle() { return MiscUtils.trans(subStr(worldConf().getString(BOSSBAR_TITLE))); }
 
 	public void setSleepTicks(long ticks) {
-		try {
-			Object nmsPlr = ReflectUtil.invokeMethod(plr, "getHandle");
-			ReflectUtil.setValue(nmsPlr, false, "sleepTicks", (int) ticks);
-		} catch (Exception e) { e.printStackTrace(); }
+//		try {
+//			Object nmsPlr = ReflectUtil.invokeMethod(plr, "getHandle");
+//			ReflectUtil.setValue(nmsPlr, false, "sleepTicks", (int) ticks);
+//		} catch (Exception e) {
+//			SmoothSleep.logSevere("Failed to set sleep ticks for " + plr.getName());
+//		}
 	}
 }

@@ -1,10 +1,9 @@
 name: SmoothSleep
 version: ${project.version}
 main: com.luffbox.smoothsleep.SmoothSleep
-api-version: 1.13
+api-version: 1.21
 prefix: SS
-softdepend: [Essentials,CMI,PlaceholderAPI]
-authors: [OffLuffy]
+authors: [OffLuffy, JustEli]
 description: ${project.description}
 commands:
   smoothsleepreload:
@@ -17,11 +16,6 @@ commands:
     permission: smoothsleep.toggle
     usage: /sstoggle
     aliases: [sstoggle, ssleeptoggle, sleeptoggle]
-  smoothsleepmetrics:
-    description: Toggles metrics for SmoothSleep
-    permission: smoothsleep.metrics
-    usage: /ssmetrics
-    aliases: [ssmetrics, ssleepmetrics, sleepmetrics]
   smoothsleepaddworld:
     description: Adds a new world to the config
     permission: smoothsleep.addworld

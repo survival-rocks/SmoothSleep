@@ -32,18 +32,8 @@ public class DataStore implements Purgeable {
 	public DataStore(SmoothSleep plugin) {
 		pl = plugin;
 		config = new ConfigHelper(pl);
-
-		Plugin ess = pl.getServer().getPluginManager().getPlugin("Essentials");
-		Plugin cmi = pl.getServer().getPluginManager().getPlugin("CMI");
-		if (ess != null && ess.isEnabled()) { userHelper = new EssUserHelper(pl); }
-		else if (cmi != null && cmi.isEnabled()) { userHelper = new CmiUserHelper(pl); }
-		else if (SmoothSleep.serverType == LoggablePlugin.ServerType.PURPUR) { userHelper = new PurpurUserHelper(); }
-		else { userHelper = new DefUserHelper(); }
-
-		Plugin papi = pl.getServer().getPluginManager().getPlugin("PlaceholderAPI");
-		if (papi != null && papi.isEnabled()) {
-			placeholders = new PlaceholderAPIHelper(pl);
-		} else { placeholders = new DefPlaceholderHelper(pl); }
+		userHelper = new DefUserHelper();
+		placeholders = new DefPlaceholderHelper(pl);
 
 		switch (SmoothSleep.serverType) {
 			case BUKKIT:

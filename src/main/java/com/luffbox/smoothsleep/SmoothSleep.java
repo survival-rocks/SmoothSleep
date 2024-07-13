@@ -7,7 +7,6 @@ import com.luffbox.smoothsleep.lib.TabExecutor;
 import com.luffbox.smoothsleep.listeners.NightListeners;
 import com.luffbox.smoothsleep.listeners.PlayerListeners;
 import com.luffbox.smoothsleep.tasks.EveryTickTask;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -26,13 +25,11 @@ public final class SmoothSleep extends LoggablePlugin {
 			TICKS_PER_MIN = 1200L;
 
 	public DataStore data;
-	public static Metrics metrics;
 
 	private BukkitTask everyTickTask;
 
 	@Override
 	public void onEnable() {
-		metrics = new Metrics(this, STAT_ID);
 		data = new DataStore(this); // init() after assign so data variable isn't null
 		data.init();
 
@@ -45,11 +42,13 @@ public final class SmoothSleep extends LoggablePlugin {
 
 		registerCmd("smoothsleepreload", new Reload(this));
 		registerCmd("smoothsleeptoggle", new ToggleEnabled(this));
-		registerCmd("smoothsleepmetrics", new ToggleMetrics(this));
 		registerCmd("smoothsleepaddworld", new AddWorld(this));
 		registerCmd("smoothsleepconfigureworld", new ConfigureWorld(this));
 
 		everyTickTask = new EveryTickTask(this).runTaskTimer(this, 0L, 0L);
+
+		ConfigHelper.firstRun = false;
+		data.reload();
 	}
 
 	@Override

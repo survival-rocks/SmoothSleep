@@ -2,7 +2,6 @@ package com.luffbox.smoothsleep.lib;
 
 import com.luffbox.smoothsleep.SmoothSleep;
 import com.luffbox.smoothsleep.lib.particle.ParticlePatternType;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -14,9 +13,13 @@ import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static com.luffbox.smoothsleep.lib.ConfigHelper.WorldSettingKey.*;
 import static org.bukkit.Particle.*;
@@ -37,13 +40,12 @@ public class ConfigHelper {
 	private final ConfigHelper conf;
 	public Map<World, WorldSettings> worlds = new HashMap<>();
 
-	public static Set<PotionEffectType> negativeEffects = Stream.of(BLINDNESS, CONFUSION, HARM, HUNGER, LEVITATION,
-			POISON, SLOW, SLOW_DIGGING, UNLUCK, WEAKNESS, WITHER, UNLUCK).collect(Collectors.toSet());
-	public static Set<PotionEffectType> positiveEffects = Stream.of(ABSORPTION, DAMAGE_RESISTANCE, FAST_DIGGING,
-			FIRE_RESISTANCE, GLOWING, HEAL, HEALTH_BOOST, INCREASE_DAMAGE, INVISIBILITY, JUMP, NIGHT_VISION,
-			REGENERATION, SATURATION, SPEED, WATER_BREATHING, LUCK).collect(Collectors.toSet());
-	public static Set<Particle> requiresData = Stream.of(REDSTONE, BLOCK_CRACK, BLOCK_DUST, FALLING_DUST, ITEM_CRACK,
-			SPELL_MOB, SPELL_MOB_AMBIENT).collect(Collectors.toSet());
+	public static Set<PotionEffectType> negativeEffects = Set.of(BLINDNESS, NAUSEA, INSTANT_DAMAGE, HUNGER, LEVITATION,
+			POISON, SLOWNESS, MINING_FATIGUE, UNLUCK, WEAKNESS, WITHER);
+	public static Set<PotionEffectType> positiveEffects = Set.of(ABSORPTION, RESISTANCE, HASTE,
+			FIRE_RESISTANCE, GLOWING, INSTANT_HEALTH, HEALTH_BOOST, STRENGTH, INVISIBILITY, JUMP_BOOST, NIGHT_VISION,
+			REGENERATION, SATURATION, SPEED, WATER_BREATHING, LUCK);
+	public static Set<Particle> requiresData = Set.of(DUST, BLOCK_MARKER, FALLING_DUST);
 	public static boolean firstRun;
 
 	private static String validBarColors, validBarStyles, validParticlePatternTypes;
@@ -358,10 +360,6 @@ public class ConfigHelper {
 		ss.saveDefaultConfig();
 		ss.reloadConfig();
 
-		if (!firstRun && getBoolean(GlobalSettingKey.ENABLE_STATS)) {
-			SmoothSleep.metrics = new Metrics(ss, SmoothSleep.STAT_ID);
-		} else { SmoothSleep.metrics = null; }
-
 		boolean changed = false;
 
 		for (GlobalSettingKey key : GlobalSettingKey.values()) {
@@ -549,7 +547,7 @@ public class ConfigHelper {
 					}
 				}
 			} else if (contains(path(w))) {
-				SmoothSleep.logWarning("World is not a normal environment type (world: " + w.getName() + ", environment: " + w.getEnvironment().name().toLowerCase(Locale.ENGLISH) + ")");
+				SmoothSleep.logWarning("World is not a normal environment type (world: " + w.getName() + ", environment: " + w.getEnvironment().name().toLowerCase() + ")");
 			}
 		}
 

@@ -7,6 +7,5 @@ import org.bukkit.entity.Player;
  */
 public interface UserHelper {
 	String getNickname(Player p);
-	boolean isAfk(Player p);
 	boolean isVanished(Player p);
 }
